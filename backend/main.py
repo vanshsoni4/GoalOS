@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta
+from fastapi import Header
 app = FastAPI()
 pwd_context = CryptContext(
     schemes=["bcrypt"],
@@ -30,6 +31,19 @@ def create_access_token(data: dict):
     )
 
     return encoded_jwt
+def verify_token(token):
+
+    try:
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        return payload
+
+    except:
+        return None
 
 class UserRegister(BaseModel):
     name: str
@@ -262,4 +276,52 @@ def get_progress(user_id: int):
             "completed": completed,
             "total": total,
             "percentage": percentage
+        }
+@app.get("/me")
+def get_current_user(
+    authorization: str = Header(None)
+):
+    print("Authorization =", authorization)
+    if authorization is None:
+        return {
+            "message": "Token Missing"
+        }
+
+    token = authorization.replace(
+        "Bearer ",
+        ""
+    )
+
+    payload = verify_token(token)
+
+    if payload is None:
+        return {
+            "message": "Invalid Token"
+        }
+
+    user_id = payload["user_id"]
+
+    with engine.connect() as conn:
+
+        result = conn.execute(
+            text("""
+            SELECT id,
+                   name,
+                   email,
+                   age,
+                   education
+            FROM users
+            WHERE id = :id
+            """),
+            {"id": user_id}
+        )
+
+        user = result.fetchone()
+
+        return {
+            "id": user.id,
+            "name": user.name,
+            "email": user.email,
+            "age": user.age,
+            "education": user.education
         }
