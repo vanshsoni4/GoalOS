@@ -1,0 +1,14 @@
+**pycache**/
+*.pyc
+.env
+venv/
+.idea/
+.vscode/
+
+*.sqlite3
+*.log
+
+node_modules/
+.next/
+
+.DS_Store
