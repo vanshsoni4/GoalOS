@@ -1,12 +1,19 @@
+from routers.auth import router as auth_router
 from fastapi import FastAPI
 from sqlalchemy import text
 from database import engine
-from pydantic import BaseModel
 from passlib.context import CryptContext
 from jose import jwt
 from datetime import datetime, timedelta
 from fastapi import Header
+from schemas.user import (
+    UserRegister,
+    UserLogin,
+    UserGoal,
+    UserProgress
+)
 app = FastAPI()
+app.include_router(auth_router)
 pwd_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
@@ -45,23 +52,7 @@ def verify_token(token):
     except:
         return None
 
-class UserRegister(BaseModel):
-    name: str
-    email: str
-    password: str
-    age: int
-    education: str
-class UserLogin(BaseModel):
-    email: str
-    password: str
 
-class UserGoal(BaseModel):
-    user_id: int
-    goal_id: int
-
-class UserProgress(BaseModel):
-    user_id: int
-    roadmap_node_id: int
 
 @app.get("/")
 def home():
