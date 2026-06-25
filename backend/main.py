@@ -12,7 +12,9 @@ from schemas.user import (
     UserGoal,
     UserProgress
 )
+from routers.goals import router as goals_router
 app = FastAPI()
+app.include_router(goals_router)
 app.include_router(auth_router)
 pwd_context = CryptContext(
     schemes=["bcrypt"],
@@ -59,70 +61,8 @@ def home():
     return {"message": "GoalOS Backend Running"}
 
 
-@app.get("/goals")
-def get_goals():
-    with engine.connect() as conn:
-        result = conn.execute(
-            text("SELECT id, goal_name, category FROM goals")
-        )
-
-        return [
-            {
-                "id": row.id,
-                "goal_name": row.goal_name,
-                "category": row.category
-            }
-            for row in result
-        ]
 
 
-@app.get("/roadmap/{goal_id}")
-def get_roadmap(goal_id: int):
-    with engine.connect() as conn:
-        result = conn.execute(
-            text("""
-            SELECT step_number, title, description
-            FROM roadmap_nodes
-            WHERE goal_id = :goal_id
-            ORDER BY step_number
-            """),
-            {"goal_id": goal_id}
-        )
-
-        return [
-            {
-                "step": row.step_number,
-                "title": row.title,
-                "description": row.description
-            }
-            for row in result
-        ]
-
-
-@app.get("/skills/{goal_id}")
-def get_skills(goal_id: int):
-    with engine.connect() as conn:
-        result = conn.execute(
-            text("""
-            SELECT s.id,
-                   s.skill_name,
-                   gs.importance
-            FROM skills s
-            JOIN goal_skills gs
-            ON s.id = gs.skill_id
-            WHERE gs.goal_id = :goal_id
-            """),
-            {"goal_id": goal_id}
-        )
-
-        return [
-            {
-                "id": row.id,
-                "skill_name": row.skill_name,
-                "importance": row.importance
-            }
-            for row in result
-        ]
 
 
 @app.post("/user-goal")
