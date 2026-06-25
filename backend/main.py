@@ -14,7 +14,15 @@ from schemas.user import (
 )
 from routers.goals import router as goals_router
 from routers.progress import router as progress_router
+from fastapi.middleware.cors import CORSMiddleware
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 app.include_router(progress_router)
 app.include_router(goals_router)
 app.include_router(auth_router)
