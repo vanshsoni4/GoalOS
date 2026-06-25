@@ -2,13 +2,13 @@
 
 ## Overview
 
-GoalOS is an AI-powered career operating system designed to help students and professionals discover the right career paths, learn required skills, follow structured roadmaps, track progress, and make informed career decisions.
+GoalOS is an AI-powered Career Operating System designed to help students and professionals discover the right career paths, learn required skills, follow structured roadmaps, track progress, and make informed career decisions.
 
-The goal of GoalOS is to eliminate information gaps, academic jealousy, and lack of guidance by providing verified career roadmaps, community-driven insights, and personalized recommendations.
+The goal of GoalOS is to eliminate information gaps, academic jealousy, lack of mentorship, and scattered career guidance by providing verified career roadmaps, community-driven insights, and personalized recommendations.
 
 ---
 
-## Problem Statement
+# Problem Statement
 
 Many students and professionals struggle because they do not know:
 
@@ -20,82 +20,194 @@ Many students and professionals struggle because they do not know:
 * How to prepare for internships and jobs
 * Which resources are trusted by professionals
 
-Important information is often hidden, scattered across platforms, or shared only within limited circles.
+Important career information is often hidden, scattered across multiple platforms, or shared only within limited circles.
 
-GoalOS aims to solve this problem through structured guidance and community knowledge.
+GoalOS aims to solve this problem through structured guidance, community knowledge, and AI-powered recommendations.
 
 ---
 
-## Features
+# Current Status
 
-### Career Roadmaps
+### Backend
+
+✅ FastAPI Backend Completed
+
+✅ PostgreSQL Database Connected
+
+✅ SQLAlchemy Integration
+
+✅ JWT Authentication Implemented
+
+✅ Modular Router Architecture
+
+✅ User Registration API
+
+✅ User Login API
+
+✅ Goals API
+
+✅ Roadmap API
+
+✅ Skills API
+
+✅ Progress Tracking API
+
+---
+
+### Frontend
+
+✅ Next.js Frontend Setup
+
+✅ TypeScript Configuration
+
+✅ Tailwind CSS Integration
+
+✅ Landing Page
+
+✅ Login Page
+
+✅ Dashboard Page
+
+✅ Frontend Connected to FastAPI Backend
+
+✅ JWT Authentication Flow Working
+
+---
+
+# Features
+
+## Career Roadmaps
 
 * Step-by-step learning paths
-* Skill progression tracking
 * Domain-specific guidance
+* Structured career progression
+* Career milestone tracking
 
-### Skills Mapping
+## Skills Mapping
 
 * Skills linked to career goals
 * Importance levels for each skill
 * Learning sequence recommendations
+* Skill dependency tracking
 
-### User Progress Tracking
+## User Progress Tracking
 
 * Mark roadmap steps as completed
 * Track overall progress percentage
 * Visual growth tracking
+* Learning journey management
 
-### Authentication
+## Authentication
 
 * User Registration
 * User Login
-* JWT Token Generation
+* JWT Token Authentication
+* Secure User Sessions
 
-### Community Driven Knowledge (Planned)
+## Dashboard
 
-* Reviews from experienced professionals
-* Recommended resources
+* Career Overview
+* Progress Tracking
+* Goal Management
+* Personalized User Experience
+
+---
+
+# Community Driven Knowledge (Planned)
+
+GoalOS aims to build a community knowledge network where experienced professionals and students can contribute:
+
+* Career reviews
+* Real-world experiences
 * Common mistakes to avoid
-* Real-world career experiences
+* Recommended learning paths
+* Internship guidance
+* Placement preparation tips
 
-### AI Career Counselor (Planned)
+Contributors will earn reputation and credibility through valuable contributions.
+
+---
+
+# AI Career Counselor (Planned)
+
+GoalOS will provide:
 
 * Personalized career guidance
 * Domain recommendations
 * Learning plans
 * Skill gap analysis
+* Career readiness assessment
+* Resource recommendations
 
 ---
 
-## Current Tech Stack
+# Tech Stack
 
-### Backend
+## Backend
 
 * FastAPI
 * Python
-
-### Database
-
 * PostgreSQL
-
-### ORM / Database Access
-
 * SQLAlchemy
-
-### Authentication
-
-* JWT
+* JWT Authentication
 * Passlib (bcrypt)
 
-### Version Control
+## Frontend
+
+* Next.js 16
+* React
+* TypeScript
+* Tailwind CSS
+
+## Version Control
 
 * Git
 * GitHub
 
 ---
 
-## Database Tables
+# Architecture
+
+Frontend (Next.js)
+
+↓
+
+JWT Authentication
+
+↓
+
+FastAPI Backend
+
+↓
+
+PostgreSQL Database
+
+---
+
+# Project Structure
+
+```text
+backend/
+├── routers/
+│   ├── auth.py
+│   ├── goals.py
+│   └── progress.py
+│
+├── schemas/
+│   └── user.py
+│
+├── database.py
+└── main.py
+
+goalos-frontend/
+├── src/
+│   └── app/
+│       ├── login/
+│       ├── dashboard/
+│       └── page.tsx
+```
+
+# Database Tables
 
 * users
 * goals
@@ -107,69 +219,82 @@ GoalOS aims to solve this problem through structured guidance and community know
 
 ---
 
-## API Endpoints
+# API Endpoints
 
-### General
+## General
 
-GET /
-GET /goals
-GET /roadmap/{goal_id}
-GET /skills/{goal_id}
+* GET /
+* GET /goals
+* GET /roadmap/{goal_id}
+* GET /skills/{goal_id}
 
-### Authentication
+## Authentication
 
-POST /register
-POST /login
+* POST /register
+* POST /login
 
-### User Goals
+## User Goals
 
-POST /user-goal
+* POST /user-goal
 
-### Progress Tracking
+## Progress Tracking
 
-POST /progress
-GET /progress/{user_id}
+* POST /progress
+* GET /progress/{user_id}
 
 ---
 
-## Future Roadmap
+# Future Roadmap
 
-### Phase 1
+## Phase 1
 
 * Complete Backend APIs
 * JWT Protected Routes
 * Better Error Handling
+* User Profile Management
 
-### Phase 2
+## Phase 2
 
-* Next.js Frontend
-* Dashboard UI
-* User Profiles
+* Advanced Dashboard
+* Career Goal Selection UI
+* Roadmap Visualization
+* Progress Analytics
 
-### Phase 3
+## Phase 3
 
 * AI Career Counselor
 * Resource Recommendation Engine
-* Personalized Roadmaps
+* Personalized Learning Plans
+* Skill Gap Analysis
 
-### Phase 4
+## Phase 4
 
 * Community Reviews
 * Mentor Verification
 * Reputation System
 * Contributor Credits
+* Resource Voting System
+
+## Phase 5
+
+* Internship Recommendation Engine
+* Job Preparation Tracker
+* Resume Analyzer
+* Interview Preparation Assistant
 
 ---
 
-## Vision
+# Vision
 
-GoalOS aims to become a community-driven AI career operating system that provides verified career roadmaps, trusted recommendations, real-world experiences, and personalized guidance for every field and profession.
+GoalOS aims to become a community-driven AI Career Operating System that provides verified career roadmaps, trusted recommendations, real-world experiences, and personalized guidance for every field and profession.
+
+The long-term vision is to ensure that no student or professional is held back due to lack of guidance, information gaps, or limited access to mentorship.
 
 ---
 
-## Author
+# Author
 
-Vansh Soni
+**Vansh Soni**
 
 B.Tech Computer Science with Data Science
 
