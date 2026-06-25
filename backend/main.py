@@ -13,7 +13,9 @@ from schemas.user import (
     UserProgress
 )
 from routers.goals import router as goals_router
+from routers.progress import router as progress_router
 app = FastAPI()
+app.include_router(progress_router)
 app.include_router(goals_router)
 app.include_router(auth_router)
 pwd_context = CryptContext(
@@ -65,84 +67,7 @@ def home():
 
 
 
-@app.post("/user-goal")
-def select_goal(data: UserGoal):
 
-    with engine.connect() as conn:
-
-        conn.execute(
-            text("""
-            INSERT INTO user_goals
-            (user_id, goal_id, progress)
-            VALUES
-            (:user_id, :goal_id, 0)
-            """),
-            {
-                "user_id": data.user_id,
-                "goal_id": data.goal_id
-            }
-        )
-
-        conn.commit()
-
-    return {
-        "message": "Goal Selected Successfully"
-    }
-@app.post("/progress")
-def update_progress(data: UserProgress):
-
-    with engine.connect() as conn:
-
-        conn.execute(
-            text("""
-            INSERT INTO user_progress
-            (user_id, roadmap_node_id, completed)
-            VALUES
-            (:user_id, :roadmap_node_id, TRUE)
-            """),
-            {
-                "user_id": data.user_id,
-                "roadmap_node_id": data.roadmap_node_id
-            }
-        )
-
-        conn.commit()
-
-    return {
-        "message": "Progress Updated Successfully"
-    }
-@app.get("/progress/{user_id}")
-def get_progress(user_id: int):
-
-    with engine.connect() as conn:
-
-        completed = conn.execute(
-            text("""
-            SELECT COUNT(*)
-            FROM user_progress
-            WHERE user_id = :user_id
-            AND completed = TRUE
-            """),
-            {"user_id": user_id}
-        ).scalar()
-
-        total = conn.execute(
-            text("""
-            SELECT COUNT(*)
-            FROM roadmap_nodes
-            """)
-        ).scalar()
-
-        percentage = 0
-
-        if total > 0:
-            percentage = round((completed / total) * 100, 2)
-
-        return {
-            "completed": completed,
-            "total": total,
-            "percentage": percentage
-        }
 @app.get("/me")
 def get_current_user(
     authorization: str = Header(None)
