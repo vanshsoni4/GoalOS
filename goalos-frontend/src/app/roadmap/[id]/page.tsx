@@ -11,7 +11,7 @@ export default function RoadmapPage() {
   const id = params.id;
 
   const loadProgress = () => {
-    fetch("http://127.0.0.1:8000/progress/1")
+    fetch("https://goalos-backend.onrender.com/progress/1")
       .then((res) => res.json())
       .then((data) => {
         setProgress(data);
@@ -21,7 +21,7 @@ export default function RoadmapPage() {
   useEffect(() => {
     if (!id) return;
 
-    fetch(`http://127.0.0.1:8000/roadmap/${id}`)
+    fetch(`https://goalos-backend.onrender.com/roadmap/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setRoadmap(data);
@@ -32,7 +32,7 @@ export default function RoadmapPage() {
 
   const markComplete = async (roadmapNodeId: number) => {
     const response = await fetch(
-      "http://127.0.0.1:8000/progress",
+      "https://goalos-backend.onrender.com/progress",
       {
         method: "POST",
         headers: {
