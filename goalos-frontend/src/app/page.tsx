@@ -1,19 +1,31 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white">
 
       {/* Navbar */}
       <nav className="flex justify-between items-center px-8 py-6 border-b border-gray-800">
-        <h1 className="text-2xl font-bold">GoalOS</h1>
+        <h1 className="text-2xl font-bold">
+          GoalOS
+        </h1>
 
         <div className="flex gap-4">
-          <button className="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-900">
-            Login
-          </button>
 
-          <button className="px-4 py-2 bg-white text-black rounded-lg font-semibold hover:scale-105 transition">
+          <Link
+            href="/login"
+            className="px-4 py-2 border border-gray-700 rounded-lg hover:bg-gray-900"
+          >
+            Login
+          </Link>
+
+          <Link
+            href="/register"
+            className="px-4 py-2 bg-white text-black rounded-lg font-semibold hover:scale-105 transition"
+          >
             Register
-          </button>
+          </Link>
+
         </div>
       </nav>
 
@@ -31,14 +43,23 @@ export default function Home() {
         </p>
 
         <div className="flex gap-4">
-          <button className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">
-            Get Started
-          </button>
 
-          <button className="border border-gray-700 px-6 py-3 rounded-xl hover:bg-gray-900 transition">
+          <Link
+            href="/register"
+            className="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:scale-105 transition"
+          >
+            Get Started
+          </Link>
+
+          <Link
+            href="/dashboard"
+            className="border border-gray-700 px-6 py-3 rounded-xl hover:bg-gray-900 transition"
+          >
             Explore Careers
-          </button>
+          </Link>
+
         </div>
+
       </section>
 
       {/* Features */}
