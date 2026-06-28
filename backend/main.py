@@ -15,7 +15,11 @@ from schemas.user import (
 from routers.goals import router as goals_router
 from routers.progress import router as progress_router
 from fastapi.middleware.cors import CORSMiddleware
+from routes.ai import router as ai_router
+
+
 app = FastAPI()
+app.include_router(ai_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -51,17 +55,21 @@ def create_access_token(data: dict):
 
     return encoded_jwt
 def verify_token(token):
-
     try:
+        print("TOKEN =", token)
+
         payload = jwt.decode(
             token,
             SECRET_KEY,
             algorithms=[ALGORITHM]
         )
 
+        print("PAYLOAD =", payload)
+
         return payload
 
-    except:
+    except Exception as e:
+        print("JWT ERROR =", e)
         return None
 
 
@@ -75,7 +83,7 @@ def home():
 
 
 
-
+print("SECRET_KEY =", SECRET_KEY)
 @app.get("/me")
 def get_current_user(
     authorization: str = Header(None)

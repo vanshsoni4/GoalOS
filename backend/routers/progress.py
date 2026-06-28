@@ -30,7 +30,40 @@ def select_goal(data: UserGoal):
         "message": "Goal Selected Successfully"
     }
 
+@router.get("/user-goal/{user_id}")
+def get_user_goal(user_id: int):
 
+    with engine.connect() as conn:
+
+        result = conn.execute(
+            text("""
+            SELECT g.id,
+                   g.goal_name,
+                   g.category,
+                   ug.progress
+            FROM user_goals ug
+            JOIN goals g
+              ON ug.goal_id = g.id
+            WHERE ug.user_id = :user_id
+            ORDER BY ug.id DESC
+            LIMIT 1
+            """),
+            {"user_id": user_id}
+        )
+
+        goal = result.fetchone()
+
+        if not goal:
+            return {
+                "message": "No Goal Selected"
+            }
+
+        return {
+            "goal_id": goal.id,
+            "goal_name": goal.goal_name,
+            "category": goal.category,
+            "progress": goal.progress
+        }
 @router.post("/progress")
 def update_progress(data: UserProgress):
 

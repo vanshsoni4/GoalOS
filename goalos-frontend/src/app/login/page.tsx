@@ -5,38 +5,46 @@ import { useState } from "react";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+const handleLogin = async () => {
+  try {
+    const response = await fetch(
+      "http://127.0.0.1:8000/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      }
+    );
 
-  const handleLogin = async () => {
-    try {
-      const response = await fetch(
-        "http://127.0.0.1:8000/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
-        }
+    const data = await response.json();
+
+    alert(JSON.stringify(data));
+
+    console.log("LOGIN RESPONSE:", data);
+
+    if (data.access_token) {
+      localStorage.setItem(
+        "token",
+        data.access_token
       );
 
-      const data = await response.json();
+      alert("Token Saved");
 
-      console.log(data);
-
-      localStorage.setItem(
-  "token",
-  data.access_token
-);
-
-window.location.href = "/dashboard";
-    } catch (error) {
-      console.error(error);
-      alert("Login Failed");
+      window.location.href = "/dashboard";
+    } else {
+      alert("No access token received");
     }
-  };
+
+  } catch (error) {
+    console.error(error);
+    alert("Login Failed");
+  }
+};
 
   return (
     <main className="min-h-screen bg-black text-white flex items-center justify-center">
