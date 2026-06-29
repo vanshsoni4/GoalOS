@@ -8,7 +8,7 @@ export default function LoginPage() {
 const handleLogin = async () => {
   try {
     const response = await fetch(
-      "http://127.0.0.1:8000/login",
+      "https://goalos-backend.onrender.com/login",
       {
         method: "POST",
         headers: {
