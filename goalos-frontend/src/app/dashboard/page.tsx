@@ -15,13 +15,13 @@ export default function DashboardPage() {
       return;
     }
 
-    fetch("http://127.0.0.1:8000/goals")
+    fetch("https://goalos-backend.onrender.com/goals")
       .then((res) => res.json())
       .then((data) => {
         setGoals(data);
       });
 
-    fetch("http://127.0.0.1:8000/me", {
+    fetch("https://goalos-backend.onrender.com/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -36,7 +36,7 @@ export default function DashboardPage() {
 
         setUser(data);
 
-        fetch(`http://127.0.0.1:8000/user-goal/${data.id}`)
+        fetch(`https://goalos-backend.onrender.com/user-goal/${data.id}`)
           .then((res) => res.json())
           .then((goalData) => {
             setSelectedGoal(goalData);
@@ -51,7 +51,7 @@ export default function DashboardPage() {
     }
 
     const response = await fetch(
-      "http://127.0.0.1:8000/user-goal",
+      "https://goalos-backend.onrender.com/user-goal",
       {
         method: "POST",
         headers: {
@@ -68,7 +68,7 @@ export default function DashboardPage() {
 
     alert(data.message);
 
-    fetch(`http://127.0.0.1:8000/user-goal/${user.id}`)
+    fetch(`https://goalos-backend.onrender.com/user-goal/${user.id}`)
       .then((res) => res.json())
       .then((goalData) => {
         setSelectedGoal(goalData);
