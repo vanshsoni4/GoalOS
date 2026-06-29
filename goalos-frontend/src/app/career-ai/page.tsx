@@ -9,7 +9,7 @@ export default function CareerAIPage() {
 
   const getAdvice = async () => {
     const response = await fetch(
-      "http://127.0.0.1:8000/career-advice",
+      "https://goalos-backend.onrender.com/career-advice",
       {
         method: "POST",
         headers: {

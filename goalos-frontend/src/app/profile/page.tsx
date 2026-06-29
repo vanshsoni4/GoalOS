@@ -6,23 +6,27 @@ export default function ProfilePage() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-      window.location.href = "/login";
-      return;
-    }
+  if (!token) {
+    window.location.href = "/login";
+    return;
+  }
 
-    fetch("http://127.0.0.1:8000/me", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+  fetch("https://goalos-backend.onrender.com/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      setUser(data);
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setUser(data);
-      });
-  }, []);
+    .catch((err) => {
+      console.log("Error:", err);
+    });
+
+}, []);
 
   return (
     <main className="min-h-screen bg-black text-white p-8">
